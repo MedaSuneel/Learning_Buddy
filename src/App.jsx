@@ -1,10 +1,21 @@
 import './App.css'
+import AuthPage from './components/auth/AuthPage'
+import { ToastContainer } from 'react-toastify'; // ✅
+import 'react-toastify/dist/ReactToastify.css';  // ✅
 import Sidebar from './components/sidebar/Sidebar'
 import Main from './components/home/Main'
 import Header from './components/header/Header'
 import Summarize from './components/summarize/Summarize'
+import QuizDashboard from './components/quizzes/QuizDashboard';
+import QuizTake from './components/quizzes/QuizTake';
+import QuizReview from './components/quizzes/QuizReview';
+import NewQuizForm from './components/quizzes/NewQuizForm'
+import PodcastFeature from './components/podcast/PodcastFeature';
+import MockInterview from './components/mockinterview/MockInterview';
+import MockInterviewReport from './components/mockinterview/MockInterviewReport';
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
 
 function Layout({ sidebarOpen, toggleSidebar }) {
   return (
@@ -23,6 +34,7 @@ function Layout({ sidebarOpen, toggleSidebar }) {
 
 function App() {
   
+  const [selectedChatId, setSelectedChatId] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -31,21 +43,31 @@ function App() {
   return (
     <div className="flex h-screen w-screen m-0 p-0 overflow-hidden">
       <Router>
+        <ToastContainer position="top-center" autoClose={3000} />
         <Routes>
           {/* Login Route (Displayed First) */}
           {/* <Route path="/" element={<Login />} /> */}
           
+          <Route path="/" element={<AuthPage />} />
           {/* Protected Layout */}
           <Route 
             path="/*" 
             element={
               <div className="flex h-screen w-full">
-                <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+                <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} setSelectedChat={setSelectedChatId}/>
                 <div className="flex-1 flex flex-col bg-gray-900 text-white ml-16 md:ml-0 w-full overflow-hidden">
                   <Header/>
                   <Routes>
-                    <Route path="/" element={<Main />} /> 
+                    <Route path="/main" element={<Main selectedChatId={selectedChatId} setSelectedChatId={setSelectedChatId} />} /> 
                     <Route path="/summarize" element={<Summarize />} /> 
+                    <Route path="/quizzes" element={<QuizDashboard />} />
+                    <Route path="/quiz/:quizId" element={<QuizTake />} />
+                    <Route path="/quiz-review/:quizId" element={<QuizReview />} />
+                    <Route path="/new-quiz" element={<NewQuizForm />} />
+                    <Route path="/podcast" element={<PodcastFeature />} />
+                    <Route path="/mock-interview" element={<MockInterview />} />
+                    <Route path="/mock-interview-report" element={<MockInterviewReport/>} />
+                    {/* Add more routes as needed */}
                   </Routes>
                   
                 </div>
@@ -54,33 +76,12 @@ function App() {
           />
         </Routes>
       </Router>
-      {/* <Router>
-        <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
-          <div className="flex-1 flex flex-col bg-gray-900 text-white p-4 ml-16  md:ml-0  w-full overflow-hidden">
-            <Routes>
-              <Route path="/" element={<Main />} />
-            </Routes>
-            <Header/>
-            <Main /> 
-          </div>
-      </Router> */}
+      
     </div>
   );
 };
 
 
-//   return (
-//     <>
-//       {/* <div className>
-//       <h1 className="sm:text-3xl font-bold underline bg-red-600 p-10 lg:bg-green-500">
-//         Hello world!
-//       </h1>
-//       <img src="vite.svg" alt="react logo" className="w-20 h-20" />
-//       <img src="react.svg" alt="react" className="w-20 h-20"/>
-//       </div> */}
-//       <Sidebar/>
-//     </>
-//   )
-// }
+
 
 export default App

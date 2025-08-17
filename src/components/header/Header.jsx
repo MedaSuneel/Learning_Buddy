@@ -9,7 +9,7 @@ const Header = () => {
     <div className="flex flex-col bg-gray-900 text-white h-20 p-3 md:ml-0  w-full overflow-hidden">
     <div className="flex justify-between items-center">
       <div className="flex gap-3 items-center cursor-pointer transform hover:scale-107  duration-300" 
-            onClick={() => navigate("/")}>
+            onClick={() => navigate("/main")}>
         <img src="Chatbot.jpg" className="w-11 h-11 rounded-3xl" alt="Menu" />
         <h1 className="text-xl font-bold">Learning Buddy</h1>
       </div>
