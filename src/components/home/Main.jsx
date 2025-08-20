@@ -128,7 +128,7 @@
 
 
     const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-    const API_KEY = "AIzaSyAWv2l_khRuqt-YdisLG2DSrRq68dyZRgc"; // Replace with your actual API key
+    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY ; // Replace with your actual API key
 
 
     const handleInput = (e) => {
