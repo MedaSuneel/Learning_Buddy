@@ -13,7 +13,8 @@ const Header = () => {
         <img src="Chatbot.jpg" className="w-11 h-11 rounded-3xl" alt="Menu" />
         <h1 className="text-xl font-bold">Learning Buddy</h1>
       </div>
-      <img src="Profile.png" className="w-12 h-12 rounded-full md:mx-4 sm:m-0 cursor-pointer transform hover:scale-115  duration-300 " alt="Profile" />
+      <img src="Profile.png" className="w-12 h-12 rounded-full md:mx-4 sm:m-0 cursor-pointer transform hover:scale-115  duration-300 " alt="Profile" 
+              onClick={() => navigate("/profile")}/>
     </div> 
     </div>
   );

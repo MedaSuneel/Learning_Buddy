@@ -90,22 +90,17 @@ import { onAuthStateChanged } from "firebase/auth";
                           <p className=" text-xl ml-4">Quizzes</p>
                         }
                       </div>
-                      <div className="flex items-center mb-3 m-2 cursor-pointer transform hover:scale-90 transition duration-500">
-                        <img src="/video2.jpg" className="w-8 h-8 mr-2" alt="Translate" /> 
-                        {sidebarOpen && 
-                          <p className=" text-xl ml-4">Translate Video</p>
-                        }
-                      </div>
+                      
                       <div className="flex items-center mb-3 m-2 cursor-pointer transform hover:scale-90 transition duration-500"
                         onClick={() => navigate("/podcast")}>
-                        <img src="/quiz.jpg" className="w-8 h-8 mr-2" alt="Podcast" /> 
+                        <img src="/podcast.jpg" className="w-8 h-8 mr-2" alt="Podcast" /> 
                         {sidebarOpen && 
                           <p className=" text-xl ml-4">Podcasts</p>
                         }
                       </div>
                       <div className="flex items-center mb-3 m-2 cursor-pointer transform hover:scale-90 transition duration-500"
                         onClick={() => navigate("/mock-interview-report")}>
-                        <img src="/video2.jpg" className="w-8 h-8 mr-2" alt="Translate" /> 
+                        <img src="/interview.png" className="w-8 h-8 mr-2" alt="Translate" /> 
                         {sidebarOpen && 
                           <p className=" text-xl ml-4">Mock Interviews</p>
                         }

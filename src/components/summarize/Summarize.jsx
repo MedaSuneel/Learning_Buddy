@@ -138,7 +138,7 @@ const Summarize = () => {
                 disabled={!file || !customPrompt.trim()}
                 className={`px-4 py-2 rounded-2xl  text-white ${
                   file && customPrompt.trim()
-                    ? "bg-orange-600 hover:bg-orange-700 cursor-pointer "
+                    ? "bg-orange-500 hover:bg-orange-700 cursor-pointer "
                     : "bg-gray-600 cursor-not-allowed"
                 }`}
               >

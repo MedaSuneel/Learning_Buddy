@@ -13,6 +13,8 @@ import NewQuizForm from './components/quizzes/NewQuizForm'
 import PodcastFeature from './components/podcast/PodcastFeature';
 import MockInterview from './components/mockinterview/MockInterview';
 import MockInterviewReport from './components/mockinterview/MockInterviewReport';
+import LandingPage from './components/landing/LandingPage';
+import Profile from './components/profile/Profile';
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
@@ -41,14 +43,12 @@ function App() {
   }
 
   return (
-    <div className="flex h-screen w-screen m-0 p-0 overflow-hidden">
+    <div className="flex min-h-screen w-screen m-0 p-0 overflow-x-hidden overflow">
       <Router>
         <ToastContainer position="top-center" autoClose={3000} />
         <Routes>
-          {/* Login Route (Displayed First) */}
-          {/* <Route path="/" element={<Login />} /> */}
-          
-          <Route path="/" element={<AuthPage />} />
+          <Route path="/" element={<LandingPage />} />
+          {/*  */}<Route path="/login" element={<AuthPage />} />
           {/* Protected Layout */}
           <Route 
             path="/*" 
@@ -67,6 +67,8 @@ function App() {
                     <Route path="/podcast" element={<PodcastFeature />} />
                     <Route path="/mock-interview" element={<MockInterview />} />
                     <Route path="/mock-interview-report" element={<MockInterviewReport/>} />
+                    <Route path="/profile" element={<Profile />} />
+                    
                     {/* Add more routes as needed */}
                   </Routes>
                   

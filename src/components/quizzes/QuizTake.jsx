@@ -98,7 +98,7 @@ function QuizTake() {
           <p className="font-semibold mb-3">{idx + 1}. {q.question}</p>
           <div className="space-y-2">
             {q.options.map((opt, i) => (
-              <label key={i} className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+              <label key={i} className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 hover:text-black cursor-pointer">
                 <input
                   type="radio"
                   name={`q-${idx}`}
@@ -116,7 +116,7 @@ function QuizTake() {
       <button
         onClick={onSubmitQuiz}
         disabled={saving}
-        className="w-full md:w-auto bg-green-500 hover:bg-green-700 text-white font-semibold px-5 py-3 rounded-2xl shadow"
+        className="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-3 rounded-2xl shadow cursor-pointer"
       >
         {saving ? "Submitting…" : "Submit Quiz"}
       </button>
