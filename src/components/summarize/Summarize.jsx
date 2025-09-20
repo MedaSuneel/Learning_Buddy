@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf";
 import workerSrc from "pdfjs-dist/legacy/build/pdf.worker.min.js?url";
 import mammoth from "mammoth";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
 
 GlobalWorkerOptions.workerSrc = workerSrc;
 
@@ -12,8 +14,10 @@ const Summarize = () => {
   const [loading, setLoading] = useState(false);
   const [customPrompt, setCustomPrompt] = useState("");
 
-  const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
-  const endpoint = "https://openrouter.ai/api/v1/chat/completions";
+  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+
+  // const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+  // const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
@@ -52,49 +56,35 @@ const Summarize = () => {
   };
 
   const handleSend = async () => {
-    if (!fileContent.trim()) return;
-    setLoading(true);
-    setResponse("");
+  if (!fileContent.trim()) return;
+  setLoading(true);
+  setResponse("");
 
-    const requestBody = {
-      model: "mistralai/mistral-7b-instruct",
-      messages: [
-        {
-          role: "system",
-          content: "You are a helpful assistant that summarizes uploaded documents clearly."
-        },
-        {
-          role: "user",
-          content: `${customPrompt}\n\n${fileContent}`,
-        }
-      ]
-    };
+  try {
+    // Choose the Gemini model
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    try {
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${API_KEY}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": "https://yourdomain.com" // Replace with your actual domain or localhost
-        },
-        body: JSON.stringify(requestBody),
-      });
+    // Combine custom prompt + uploaded file content
+    const prompt = `${customPrompt}\n\n${fileContent}`;
 
-      const data = await res.json();
+    // Generate summary
+    const result = await model.generateContent(prompt);
 
-      if (data.choices?.[0]?.message?.content) {
-        setResponse(data.choices[0].message.content);
-      } else {
-        setResponse("❌ OpenRouter Error: " + (data.error?.message || "No valid response"));
-      }
-    } catch (error) {
-      console.error("Error sending request:", error);
-      setResponse("❌ Request failed: " + error.message);
+    // Extract text safely
+    const text = result?.response?.text();
+    if (text) {
+      setResponse(text);
+    } else {
+      setResponse("❌ Gemini Error: No valid response");
     }
+  } catch (error) {
+    console.error("❌ Error sending request:", error);
+    setResponse("❌ Request failed: " + error.message);
+  }
 
-    setLoading(false);
-  };
+  setLoading(false);
+};
+
 
   return (
     <div className="flex flex-col w-full h-full overflow-hidden  p-4  bg-gray-900 text-white">

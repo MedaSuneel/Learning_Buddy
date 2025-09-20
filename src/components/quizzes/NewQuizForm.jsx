@@ -131,7 +131,7 @@ function NewQuizForm() {
           <select
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value)}
-            className="border rounded-xl w-full p-3 focus:outline-none focus:ring"
+            className="border bg-gray-900 rounded-xl  w-full p-3 focus:outline-none focus:ring"
           >
             <option value="easy">Easy</option>
             <option value="moderate">Moderate</option>
