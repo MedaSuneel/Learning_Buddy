@@ -5,8 +5,8 @@ import { db, auth } from "../../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import {doc,setDoc,getDoc,updateDoc,serverTimestamp,} from "firebase/firestore";
 
-const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-const GEMINI_API_KEY = "AIzaSyAWv2l_khRuqt-YdisLG2DSrRq68dyZRgc"; // Replace with your actual API key
+const GEMINI_API_URL = import.meta.env.VITE_GEMINI_API_URL;
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY; // Replace with your actual API key
 
 //Safe JSON extraction from LLM text
 

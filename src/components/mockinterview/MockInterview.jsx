@@ -5,8 +5,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 // ✅ --- Gemini API Setup ---
-const GEMINI_API_KEY = "AIzaSyAWv2l_khRuqt-YdisLG2DSrRq68dyZRgc"; // 🔑 Replace with your key
-const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY; // 🔑 Replace with your key
+const GEMINI_URL = import.meta.env.VITE_GEMINI_API_URL;
 
 
 

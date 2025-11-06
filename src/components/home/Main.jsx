@@ -32,6 +32,12 @@
     }
 
     useEffect(() => {
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(() => console.log("Microphone permission granted"))
+        .catch(() => console.warn("Microphone access denied"));
+      }, []);
+
+    useEffect(() => {
       const handleUnload = () => {
         speechSynthesis.cancel(); // Stop speech immediately
         setCurrentlySpeaking(null); // Reset speaking state
@@ -127,7 +133,7 @@
     };
 
 
-    const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+    const API_URL = import.meta.env.VITE_GEMINI_API_URL ;
     const API_KEY = import.meta.env.VITE_GEMINI_API_KEY ; // Replace with your actual API key
 
 
@@ -300,6 +306,7 @@
       //setChatHistory([...chatHistory, newMessage]);
       setChatHistory((prev) => [...prev, newMessage]);
       setLoading(true);
+      SpeechRecognition.stopListening();
 
       try {
 
@@ -507,11 +514,16 @@
             
         {/* ) : ( */}
           <button className="ml-2" onClick={() => {
-                                      resetTranscript();
-                                      SpeechRecognition.startListening({
-                                        continuous: false,
-                                        language: "en-IN", // Or "en-US"
-                                      });
+                                      if (listening) {
+                                        SpeechRecognition.stopListening(); // Stop if already recording
+                                      } else {
+                                        resetTranscript(); // Clear old text
+                                        SpeechRecognition.startListening({
+                                          continuous: true,  // ✅ allows natural speech
+                                          interimResults: true, // ✅ helps live transcription
+                                          language: "en-IN",
+                                        });
+                                      }
                                     }}>
             <img src="mic.png" alt="Mic" className={`w-10 h-10 cursor-pointer border-3 rounded-full p-1 transform hover:scale-115 ${listening ? "animate-pulse bg-green-400" : ""}`} />
           </button>

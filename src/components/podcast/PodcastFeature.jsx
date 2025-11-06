@@ -52,11 +52,10 @@ export default function Podcast() {
             - Keep it engaging and conversational, like a podcast host talking to the audience.  
             `;
 
-    const API_KEY = "AIzaSyAWv2l_khRuqt-YdisLG2DSrRq68dyZRgc";
+    const API_URL = import.meta.env.VITE_GEMINI_API_URL;
+    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
     try {
-      const resp = await fetch(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + API_KEY,
-        {
+      const resp = await fetch(`${API_URL}?key=${API_KEY}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
